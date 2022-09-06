@@ -23,12 +23,22 @@ app.post("/todos", async (req,res)=>{
     }
 }) 
 
-app.get('/', (req,res)=>{
-    console.log('here we are')
-})
 // get all todo 
-
+app.get('/todos', async (req,res)=>{
+   try {
+    const allTodos = await pool.query("SELECT * FROM todo")
+    res.json(allTodos)
+   } catch (error) {
+    console.error(error.message)
+   }
+})
 // update todo  
+app.get('/todos/:id', async(req,res)=>{
+    const {id } = req.params;
+    const singleTodo = await pool.query("SELECT * FROM todo WHERE todo_id = $1", [id]);
+
+    res.json(singleTodo.rows);
+})
 
 // delete todo
 
