@@ -61,6 +61,17 @@ app.put('/todos/:id', async(req,res)=>{
 })
 
 // delete todo
+app.delete('/todos/:id', async(req,res)=>{
+    try {
+        const {id} = req.params;
+        const deleted = await pool.query("  FROM todo WHERE todo_id = $1", [id])
+        res.json('delted todo')
+
+    } catch (error) {
+        console.error(error.message)
+        
+    }
+})
 
 app.listen(port,()=>{
     console.log('SEVER IS RUNNING ', port);
