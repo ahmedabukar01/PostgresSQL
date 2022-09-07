@@ -34,14 +34,13 @@ app.get('/todos', async (req,res)=>{
 })
 // update todo  
 app.get('/todos/:id', async(req,res)=>{
-    const {id } = req.params;
+    const { id } = req.params;
     const singleTodo = await pool.query("SELECT * FROM todo WHERE todo_id = $1", [id]);
 
     res.json(singleTodo.rows);
 })
 
 // delete todo
-
 
 app.listen(port,()=>{
     console.log('SEVER IS RUNNING ', port);
